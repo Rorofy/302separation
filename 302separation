@@ -1,0 +1,42 @@
+#!/usr/bin/env python3
+
+from sys import *
+import os
+import __Separation__ as Sep_
+
+
+def isInt(val) -> bool:
+    try:
+        int(val)
+    except ValueError:
+        return False
+    return True
+
+
+def isFileValid(fileName: str) -> bool:
+    try:
+        file = open(fileName)
+    except IOError:
+        return False
+    else:
+        if os.path.getsize(fileName) == 0:
+            return False
+        file.close()
+    return True
+
+
+def checkError():
+    if len(argv) != 3 and len(argv) != 4:
+        exit(84)
+    if len(argv) == 3 and (isInt(argv[2]) == False or int(argv[2]) < 0):
+        exit(84)
+    if isFileValid(argv[1]) == False:
+        exit(84)
+
+
+def main():
+    checkError()
+    Sep_.Parser().run(argv[1])
+
+
+main()
